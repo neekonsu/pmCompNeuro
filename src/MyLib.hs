@@ -1,12 +1,7 @@
-module MyLib (activate) where
+module MyLib (euler) where
 
-type X = [Float]
-data TVEC a = [Float..Float] | [Int..Int]
-data Inital = Int | Float
+euler :: (Function -> Float -> Float -> Float -> Float) -> Float
+euler dxdt t dt x = x + (dt *) . dxdt x
 
-
-forward-euler :: Initial -> TVEC -> X 
-forward-euler Int [Int..Int] = lastX + dt*dxdt -- TODO: ~ write recursive definition of lastX, dt, dxdt to generate list of x values to plot against t
-	where lastX = 
-forward-euler Float [Float..Float] = 
-forward-euler _ [_.._] = Nothing
+timeseries :: Float -> Float -> Float -> Float -> List
+timeseries x0 t0 tf dt = x0:(map (\t (dxdt t dt x)) [t0:dt:tf])
